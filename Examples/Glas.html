@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Transparent</title>
+		<meta charset="utf-8">
+		<style>
+			body {
+				margin: 0px;
+				background-color: #000000;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+
+		<script src="../js/three.min.js"></script>
+
+		<script>
+			var camera, scene, renderer;
+			var mirrorCube, mirrorCubeCamera; // for mirror material
+			var mirrorSphere, mirrorSphereCamera; // for mirror material
+			
+			init();
+			animate();
+
+			function init() {
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+				
+				scene = new THREE.Scene();
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+				scene.add(camera);
+				camera.position.set(0,10,0);
+				camera.lookAt(scene.position);	
+				
+				//Würfel
+				var wurfelgeometry = new THREE.BoxGeometry( 5, 5, 5 );
+				var glassTexture = new THREE.ImageUtils.loadTexture('Images/Glas.jpg'); 
+				var glasmaterial = new THREE.MeshBasicMaterial( { 
+					map: glassTexture, 
+					depthWrite: false, 
+					transparent: true, 
+					opacity: 0.5, 
+					side:THREE.DoubleSide, 
+					combine: THREE.MixOperation 
+				} );
+				wurfel = new THREE.Mesh( wurfelgeometry, glasmaterial );
+				
+				scene.add(wurfel);
+				wurfel.rotation.y = -(0.5*Math.PI);				
+				//Mein Code
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+			
+			function render() 
+			{
+				renderer.render( scene, camera );
+			}
+			
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+
+			function animate() {
+				wurfel.rotation.x += 0.005;
+				wurfel.rotation.y += 0.01;
+				requestAnimationFrame( animate );
+				render();
+				renderer.render( scene, camera );
+			}
+
+		</script>
+
+	</body>
+</html>
