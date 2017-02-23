@@ -3,22 +3,25 @@
 <head>
 <title>PDFs</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-<div id="container">
-  <div id="banner">
-    <h1>Music PDFs</h1>
-  </div>
-  <div style="background:#D5D4F2; align:center; text-align:center; font-size:15px; color:black;">
-	PDF1
-	<object
-		width="100%"
-		height="800"
-		type="application/pdf"
-		data="PDF/E1_EX_Einfuehrung.pdf">
-		</object>
-
-	</div>
+<body style="overflow:hidden; margin:0">
+  <form id="form1" runat="server">
+        
+			<object 
+				id="main"
+				type="application/pdf"
+				data="PDF/E1_EX_Einfuehrung.pdf">
+				</object>
+        
+    </form>
+	    <script language="javascript">
+        function autoResizeDiv()
+        {
+            document.getElementById('main').style.height = window.innerHeight +'px';
+			document.getElementById('main').style.width = window.innerWidth +'px';
+        }
+        window.onresize = autoResizeDiv;
+        autoResizeDiv();
+    </script>
 </body>
 </html>
