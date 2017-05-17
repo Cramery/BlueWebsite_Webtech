@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>SkyBox</title>
+		<meta charset="utf-8">
+		<style>
+			body {
+				margin: 0px;
+				background-color: #000000;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="../js/three.min.js"></script>
+
+		<script>
+
+			var camera, scene, renderer;
+			var mirrorSphere, mirrorSphereCamera;
+			var mouseX = 0, mouseY = 0;
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+			
+			init();
+			animate();
+
+			function init() {
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+				
+				scene = new THREE.Scene();
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
+				scene.add(camera);
+				camera.position.z = 3200;
+				camera.lookAt(scene.position);	
+
+				//Mein Code
+				var Pfad = "Images/SkyBox/"
+				var urls  = [Pfad + 'px.jpg', Pfad + 'nx.jpg', Pfad + 'py.jpg', Pfad + 'ny.jpg', Pfad + 'pz.jpg', Pfad + 'nz.jpg'];
+
+				var cubemap = THREE.ImageUtils.loadTextureCube(urls); // load textures
+				cubemap.format = THREE.RGBFormat;
+
+				var shader = THREE.ShaderLib['cube'];
+				shader.uniforms['tCube'].value = cubemap;
+
+				// create shader material
+				var skyBoxMaterial = new THREE.ShaderMaterial( {
+				  fragmentShader: shader.fragmentShader,
+				  vertexShader: shader.vertexShader,
+				  uniforms: shader.uniforms,
+				  depthWrite: false,
+				  side: THREE.BackSide
+				});
+
+				// create skybox mesh
+				var skybox = new THREE.Mesh(
+				  new THREE.CubeGeometry(100000, 100000, 100000),
+				  skyBoxMaterial
+				);
+
+				scene.add(skybox);
+
+				mirrorSphereCamera = new THREE.CubeCamera( 0.1, 50000, 512 );
+				scene.add( mirrorSphereCamera );
+				var sphereGeom =  new THREE.SphereGeometry( 500, 32, 16 ); // radius, segmentsWidth, segmentsHeight
+				var mirrorSphereMaterial = new THREE.MeshBasicMaterial( { envMap: mirrorSphereCamera.renderTarget, side:THREE.DoubleSide } );
+				mirrorSphere = new THREE.Mesh( sphereGeom, mirrorSphereMaterial );
+				mirrorSphere.position.set(75,50,0);
+				mirrorSphereCamera.position = mirrorSphere.position;
+				scene.add(mirrorSphere);	
+			}
+			
+			function onDocumentMouseMove( event ) {
+
+				mouseX = ( event.clientX - windowHalfX ) * 5;
+				mouseY = ( event.clientY - windowHalfY ) * 5;
+			}
+
+			function render() 
+			{	
+				mirrorSphere.visible = false;
+				mirrorSphereCamera.updateCubeMap( renderer, scene );
+				mirrorSphere.visible = true;
+				
+				var timer = 0.0001 * Date.now();
+
+				camera.position.x += ( mouseX - camera.position.x ) * .05;
+				camera.position.y += ( - mouseY - camera.position.y ) * .05;
+
+				camera.lookAt( scene.position );
+			}
+			
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+
+			function animate() {
+				requestAnimationFrame( animate );
+				render();
+				renderer.render( scene, camera );
+			}
+
+		</script>
+
+	</body>
+</html>
