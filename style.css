@@ -49,7 +49,7 @@ body, html {
 	color: #000000;
 	text-align:center;
 	letter-spacing : 3px;
-	background : url(images/Kugel.png) no-repeat right center;
+	background : url(Images/Kugel.png) no-repeat right center;
 }
 
 #header h1 {
@@ -266,8 +266,7 @@ ul li #home2{
 ul li .contact { 
 	background: rgba(29, 180, 203, 0.1); 
 	border-color: #1DB4CB; 
-	color: #1DB4CB; 
-	
+	color: #1DB4CB; 	
 } 
 	
 ul li .contact:hover { 
