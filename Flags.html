@@ -1,11 +1,29 @@
 <html>
 <head lang="en">
-	<title>Contact</title>
+	<title>Flags</title>
 	<link href="style.css" rel="stylesheet" type="text/css" />
 	<meta name="charset" content="UTF-8">
 	<meta name="author" content="Ramona Betschart">
 	<script src="switch.js"> </script>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	function Europe(){
+		$("#DivFlag").load("Europe.txt");
+	}
+	function Asia(){
+		$("#DivFlag").load("Asia.txt");
+	}
+	function Africa(){
+		$("#DivFlag").load("Africa.txt");
+	}
+	function America(){
+		$("#DivFlag").load("America.txt");
+	}
+	function Ozeaninen(){
+		$("#DivFlag").load("Ozeanien.txt");
+	}
+</script>
 
 <body id="body" onload="init()">
 <div id="container" style="height:100%"> 	
@@ -22,7 +40,7 @@
 				<a href="index.html" class="home"><span>Home</span><i class="entypo-home.svg"></i></a>
 			</li>
 			<li>
-				<a href="contact.html" class="contact"><span>Contact</span><i class="entypo-pencil"></i></a>
+				<a href="Contact.html" class="contact"><span>Contact</span><i class="entypo-pencil"></i></a>
 			</li>
 			<li>
 				<a href="mailto:ramona.betschart@stud.hslu.ch" class="mail"><span>Mail</span><i class="entypo-mail"></i></a>
@@ -40,34 +58,38 @@
 		<div id="about" style="font-size:15px;">
 				<table style="align:center; text-align:center;">
 					<tr>
-						<td><a href="#">Europe</a></td>
-						<td><a href="#">America</a></td>
-						<td><a href="#">Asia</a></td>
-						<td><a href="#">Afica</a></td>
-						<td><a href="#">Ozeaninen</a></td>
+						<td><input type="button" class="Flagbtn" onclick="Europe();" value="Europe" /></td>
+						<td><input type="button" class="Flagbtn" onclick="Asia();" value="Asia" /></td>
+						<td><input type="button" class="Flagbtn" onclick="Africa();" value="Africa" /></td>
+						<td><input type="button" class="Flagbtn" onclick="America();" value="America" /></td>
+						<td><input type="button" class="Flagbtn" onclick="Ozeaninen();" value="Ozeaninen" /></td>
 					</tr>
 				</table>
 				
 				<div id="DivFlag" style="padding:1em;text-align:center;">
-					<h2>Ozeaninen</h2>
+					<h2>Europe</h2>
 					<table>
 						<tr>
-							<td><img src="Images/Flags/Nauru.png" alt="Nauru" width="75%" /></td>
-							<td>Nauru<br> <div style="font-size:7px"></div> </td>
+							<td><img src="Images/Flags/EU.png" alt="EU" width="75%" /></td>
+							<td>European Union <br> <div style="font-size:7px">(Much blue ?)</div> </td>
 						</tr>
 						<tr>
-							<td><img src="Images/Flags/Palau.png" alt="Palau" width="75%" /></td>
-							<td>Palau</td>
+							<td><img src="Images/Flags/Iceland.png" alt="Iceland" width="75%" /></td>
+							<td>Iceland</td>
 						</tr>
 						<tr>
-							<td><img src="Images/Flags/Australia.png" alt="Australia" width="75%" /></td>
-							<td>Australia</td>
+							<td><img src="Images/Flags/Sweden.png" alt="Sweden" width="75%" /></td>
+							<td>Sweden</td>
 						</tr>
 						<tr>
-							<td><img src="Images/Flags/Micronesia.png" alt="Micronesia" width="75%" /></td>
-							<td>Micronesia</td>
+							<td><img src="Images/Flags/Scotland.png" alt="Scottland" width="75%" /></td>
+							<td>Scottland</td>
 						</tr>
-					</table>				
+						<tr>
+							<td><img src="Images/Flags/Lucerne.png" alt="Lucerne" width="52%" /></td>
+							<td>?Lucerne? <br> <div style="font-size:7px">(Ei Stadt ?)</div> </td>
+						</tr>
+					</table>	
 				</div>
 					
 		</div>

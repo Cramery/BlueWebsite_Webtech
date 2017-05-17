@@ -108,6 +108,17 @@ body, html {
 	font-weight: 600; 
 }
 
+.Flagbtn {
+	background-color: Transparent;
+	font-size: 20px;
+	color: blue;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
 #footer{
 	padding : 1em;
 	padding-left: 40%;
